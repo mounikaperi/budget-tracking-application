@@ -168,5 +168,26 @@ Sub-domain pattern guides through bounded-context:
            ------------------------response-------------------------client
 
    Circuit Breaker Design Pattern
+        circuit-breaker-threshold
+
+            - When the first request could not reach a specific microservice due to its down time, a fallback mechanism is triggered.
+            - After that the circuit is made open(broken) means that the fallback mechanism will address all the other consecutive requests targetting that 
+              microservice. 
+            - When a request to the same microservice is inbound after the threshold, then the circuit is half-closed means that a new attempt to reach the 
+              microservice is made
+            - On successful contact, the circuit is closed.
+            - or if that microservice is still unavailable, the circuit continuous to be open.
+            - Tools like Resiliance4j etc are for the purpose.
+
+External Configuration Design Pattern
+
+    - GitHub Repository consists a list of all config files for all the microservices.
+    - config-service
+        - Whenever a microservice has to start, it will first send a fetch request to the config-service
+        - The config-service will check for the config file in the repo
+        - The config file is passed to the microservice by the config-service
+        - Whenever the config files are modified and pushed into the repo- the config service will automatically notify all the respective microservices and the 
+          microservices will receive the updated config-file and restart themselves.
+    
        
    
