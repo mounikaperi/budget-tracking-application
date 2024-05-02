@@ -231,5 +231,31 @@ Decomposition by Domain ans Sub-Domain:
                 totalCredit
                 totalDebit
                 statementBalance
-                
+
+Aggregator Pattern for budget-tracking-application
+
+    request for statement -> statement-service 
+                                -> call profile service (take accountHolder Data)
+                                -> call txns-service (collect list of transactions)
+                                -> does the composition and computation into statement object
+                                -> return the Statement object
+
+Discovery Pattern for budget-tracking-application
+
+    discovery-service (spring-cloud-netfix-eureka-discovery service) -> registration of urls and retrieval of urls
+                                                                    -> register and retrieve profiles-service
+                                                                    -> register and retrieve txns-service
+                                                                    -> register and retrieve statement-service
+
+API Gateway Pattern for budget-tracking-application
+
+    Android/Angular/React application 
+                -> API Gateway (spring-cloud-api-gateway) 
+                            -> discovery-service (netfix eureka discovery service) 
+                                    -> registration and retrieval of urls
+                                        -> register and retrieve profiles-service
+                                        -> register and retrieve txns-service
+                                        -> register and retrieve statement-service
+
+
                 
