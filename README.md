@@ -188,6 +188,48 @@ External Configuration Design Pattern
         - The config file is passed to the microservice by the config-service
         - Whenever the config files are modified and pushed into the repo- the config service will automatically notify all the respective microservices and the 
           microservices will receive the updated config-file and restart themselves.
-    
-       
-   
+
+
+Decomposition by Domain ans Sub-Domain:
+
+    budget-tracking-application
+        profiles-service:
+            AccountHolder entity(database)
+                Long accountHolderId
+                String fullName
+                String mobile
+                String mailId
+        txns-service
+            AccountHolder entity(database)
+                Long accountHolderId
+                Double currentBalance
+            Txn Entity(database)
+                Long txnId
+                String header
+                Double amount
+                TxnType type
+                LocalDate txnDate
+                AccountHolder holder
+        statement-service
+            AccountHolder model(no database)
+                Long accountHolderId
+                String fullName
+                String mobile
+                String mailId
+                Double currentBalance
+            Txn Model(no database)
+                Long txnId
+                String header
+                Double amount
+                TxnType type
+                LocalDate txnDate
+            Statement Model(no database)
+                LocalDate start
+                LocalDate end
+                AccountHolder profile
+                Set<Txn> txns
+                totalCredit
+                totalDebit
+                statementBalance
+                
+                
