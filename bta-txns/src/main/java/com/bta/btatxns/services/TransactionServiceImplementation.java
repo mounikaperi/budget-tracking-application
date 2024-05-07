@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.bta.btatxns.entities.AccountHolder;
 import com.bta.btatxns.entities.Transaction;
+import com.bta.btatxns.entities.TransactionType;
 import com.bta.btatxns.exceptions.AccountHolderException;
 import com.bta.btatxns.exceptions.TransactionException;
 import com.bta.btatxns.repositories.AccountHolderRepository;
@@ -70,14 +71,23 @@ public class TransactionServiceImplementation implements TransactionService {
 	}
 
 	@Override
+	@Transactional
 	public Transaction update(Transaction transaction) throws AccountHolderException, TransactionException {
-		// TODO Auto-generated method stub
-		return null;
+		if (!transactionRepository.existsById(transaction.getTransactionId())) {
+			throw new TransactionException("Transaction not found to update");
+		}
+		Transaction oldTransaction = transactionRepository.findById(transaction.getTransactionId()).orElse(null);
+		AccountHolder accountHolder = oldTransaction.getHolder();
+		double currentBalance = accountHolder.getCurrentBalance();
+		currentBalance = oldTransaction.getType() == TransactionType.CREDIT ? currentBalance - oldTransaction.getAmount():  currentBalance + oldTransaction.getAmount();
+		accountHolder.setCurrentBalance(currentBalance);
+		accountHolderRepository.save(accountHolder);
+		return transaction;
 	}
 
 	@Override
 	public void deleteById(Long transactionId) throws TransactionException {
-		// TODO Auto-generated method stub
+		transactionRepository.deleteById(transactionId);
 		
 	}
 	
