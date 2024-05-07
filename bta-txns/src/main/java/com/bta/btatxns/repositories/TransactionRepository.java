@@ -15,12 +15,3 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long>{
 
 }
 
-/**
- * When we receive add a transaction request
- * 	-> check if the accountHolder is existing in transactionDB
- *  -> if YES, add the transaction
- *  -> If no, then check if the account exists in profiles - send a GET request to http://localhost:8001/{accountHolderId}/exists
- *  -> If Yes, add accountHolder in transactionDB and then add the transaction
- *  -> if no reject the transaction
- */
-*/
