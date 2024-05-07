@@ -35,4 +35,29 @@ public class AccountHolder {
 		this.transactions = transactions;
 	}
 
+	public Long getAccountHolderId() {
+		return accountHolderId;
+	}
+
+	public void setAccountHolderId(Long accountHolderId) {
+		this.accountHolderId = accountHolderId;
+	}
+
+	public Double getCurrentBalance() {
+		return currentBalance;
+	}
+
+	public void setCurrentBalance(Double currentBalance) {
+		this.currentBalance = currentBalance;
+	}
+
+	public Set<Transaction> getTransactions() {
+		return transactions;
+	}
+
+	public void setTransactions(Set<Transaction> transactions) {
+		this.transactions = transactions;
+	}
+	
+
 }
