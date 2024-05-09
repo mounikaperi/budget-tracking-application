@@ -64,10 +64,11 @@ public class TransactionServiceImplementation implements TransactionService {
 			}
 		}
 		double currentBalance = accountHolder.getCurrentBalance();
-		transaction.setHolder(accountHolder);
-		transaction = transactionRepository.save(transaction);
+		accountHolder.setCurrentBalance(transaction.getType() == TransactionType.CREDIT ? currentBalance + transaction.getAmount() : currentBalance - transaction.getAmount());
+		transaction.setHolder(accountHolder);		
 		accountHolder.getTransactions().add(transaction);
-		return transaction;
+		accountHolderRepository.save(accountHolder);
+		return transactionRepository.save(transaction);
 	}
 
 	@Override

@@ -66,7 +66,7 @@ public class Transaction implements Comparable<Transaction>{
 		this.holder = holder;
 	}
 
-	public long getTransactionId() {
+	public Long getTransactionId() {
 		return transactionId;
 	}
 
