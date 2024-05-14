@@ -9,7 +9,7 @@ import com.bta.btastatement.models.AccountHolder;
 @FeignClient(name="profiles", url="http://localhost:8001")
 public interface ProfilesClient {
 	
-	@GetMapping("/{accountHolderId}exists")
+	@GetMapping("/{accountHolderId}/exists")
 	public Boolean checkAccountHolderExists(@PathVariable("accountHolderId") Long accountHolderId);
 	
 	@GetMapping("/{accountHolderId}")
